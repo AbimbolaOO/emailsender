@@ -3,9 +3,25 @@ import { useRef, useState } from 'react';
 import styled from '@emotion/styled';
 
 import LogoIcon from './components/icons/LogoIcon';
+import MonacoIde from './components/ide/MonacoIde';
+
+const defaultHtmlValue = `
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Document</title>
+  </head>
+
+  <body>
+      <h1>Welcome</h1>
+  </body>
+</html>
+`;
 
 function App() {
-  const [content, setContent] = useState();
+  const [content, setContent] = useState(defaultHtmlValue);
   const [leftWidth, setLeftWidth] = useState(50);
   const containerRef = useRef<HTMLDivElement>(null);
   const isResizing = useRef<boolean>(false);
@@ -24,8 +40,10 @@ function App() {
     if (!isResizing.current || !containerRef.current) return;
 
     const containerRect = containerRef.current.getBoundingClientRect();
-    const newLeftWidth =
+    let newLeftWidth =
       ((e.clientX - containerRect.left) / containerRect.width) * 100;
+    newLeftWidth =
+      newLeftWidth < 25 ? 25 : newLeftWidth > 75 ? 75 : newLeftWidth;
     setLeftWidth(newLeftWidth);
   };
 
@@ -36,16 +54,17 @@ function App() {
     document.removeEventListener('mouseup', handleMouseUp);
   };
 
-  const onChange = (e: any) => {
-    setContent(e.target.value);
-  };
-
   return (
     <Container ref={containerRef}>
       <LeftCell
         style={{ width: `calc(${leftWidth}% - ${resizerWidth / 2}px)` }}
       >
-        <TextArea onChange={onChange} value={content} />
+        <MonacoIde
+          onChange={(value) => {
+            setContent(value);
+          }}
+          value={content}
+        />
       </LeftCell>
       <Resizer resizerWidth={12}>
         <Handle onMouseDown={handleMouseDown}></Handle>
@@ -59,6 +78,7 @@ function App() {
           </ResizerStatePlaceHolder>
         ) : (
           <iframe
+            title="email renderer"
             frameBorder="0"
             srcDoc={content}
             sandbox="allow-scripts"
@@ -76,11 +96,7 @@ export default App;
 const Container = styled.div`
   background-color: #e8edf6;
   height: 100vh;
-  /* display: grid;
-  grid-template-columns: 1fr auto 1fr; */
   display: flex;
-  /* gap: 16px; */
-  /* justify-content: space-between; */
   padding: 16px;
   width: 100%;
 `;
@@ -88,21 +104,11 @@ const Container = styled.div`
 const LeftCell = styled.div`
   display: flex;
   border: 2px solid rebeccapurple;
-  /* flex: 1; */
-`;
-
-const TextArea = styled.textarea`
-  border: none;
-  outline: none;
-  height: 100%;
-  width: 100%;
-  resize: none;
 `;
 
 const RightCell = styled.div`
   background-color: white;
   border: 2px solid rebeccapurple;
-  /* flex: 1; */
 `;
 
 interface IResizer {
