@@ -2,6 +2,8 @@ import React from 'react';
 
 import Editor from '@monaco-editor/react';
 
+import PlaceHolderCard from '../cards/PlaceHolderCard';
+
 interface MonacoProps {
   theme?: string;
   language?: string;
@@ -32,7 +34,7 @@ export const MonacoIde: React.FC<MonacoProps> = ({
         // wordWrap: 'on',
         minimap: { enabled: false },
         // showUnused: false,
-        // folding: false,
+        folding: false,
         // lineNumbersMinChars: 3,
         fontFamily: 'Menlo, Consolas, monospace, sans-serif',
         fontSize: 14,
@@ -40,6 +42,7 @@ export const MonacoIde: React.FC<MonacoProps> = ({
         automaticLayout: true,
       }}
       onChange={onChange}
+      loading={<PlaceHolderCard />}
     />
   );
 };
