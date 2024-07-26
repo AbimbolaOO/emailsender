@@ -15,6 +15,8 @@ const ViewResizer: React.FC<IViewResizer> = ({ children }) => {
   const [resizeDetector, setResizeDetector] = useState<Boolean>(false);
 
   const resizerWidth = 12;
+  const lowerBounds = 20;
+  const upperBounds = 80;
 
   const handleMouseDown = (e: any) => {
     isResizing.current = true;
@@ -30,7 +32,11 @@ const ViewResizer: React.FC<IViewResizer> = ({ children }) => {
     let newLeftWidth =
       ((e.clientX - containerRect.left) / containerRect.width) * 100;
     newLeftWidth =
-      newLeftWidth < 25 ? 25 : newLeftWidth > 75 ? 75 : newLeftWidth;
+      newLeftWidth < lowerBounds
+        ? lowerBounds
+        : newLeftWidth > upperBounds
+        ? upperBounds
+        : newLeftWidth;
     setLeftWidth(newLeftWidth);
   };
 
@@ -77,13 +83,11 @@ export default ViewResizer;
 
 const Container = styled.div`
   background-color: #e8edf6;
-  height: 100vh;
+  height: calc(100vh - var(--header-height));
   display: flex;
   padding: 16px;
   width: 100%;
-  overflow: auto;
-  overscroll-behavior: contain;
-  -webkit-overflow-scrolling: touch;
+  /* border: 2px solid yellow; */
 `;
 
 interface IResizer {
