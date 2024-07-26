@@ -2,7 +2,7 @@ import React from 'react';
 
 import Editor from '@monaco-editor/react';
 
-import PlaceHolderCard from '../cards/PlaceHolderCard';
+import PlaceHolderCard from '../Cards/PlaceHolderCard';
 
 interface MonacoProps {
   theme?: string;

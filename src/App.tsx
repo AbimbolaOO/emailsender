@@ -3,10 +3,11 @@ import { useState } from 'react';
 import { MenuOutlined } from '@ant-design/icons';
 import styled from '@emotion/styled';
 
-import MonacoIde from './components/ide/MonacoIde';
-import ViewResizer from './components/viewResizer/ViewResizer';
-import ViewResizerLeftCell from './components/viewResizer/ViewResizerLeftCell';
-import ViewResizerRightCell from './components/viewResizer/ViewResizerRightCell';
+import MonacoIde from './components/Ide/MonacoIde';
+import ViewResizer from './components/ViewResizer/ViewResizer';
+import ViewResizerLeftCell from './components/ViewResizer/ViewResizerLeftCell';
+import ViewResizerRightCell from './components/ViewResizer/ViewResizerRightCell';
+import Menu from './Menu';
 import { defaultHtmlValue } from './utils/utils';
 
 function App() {
@@ -26,9 +27,7 @@ function App() {
         SendMail
       </Header>
       <Content>
-        <MenuContainer className={revealMenu ? 'reveal' : ''}>
-          let have it
-        </MenuContainer>
+        <Menu revealMenu={revealMenu} />
         <CodeViewArea className={revealMenu ? 'reveal' : ''}>
           <ViewResizer>
             <ViewResizerLeftCell>
@@ -89,23 +88,6 @@ const HamburgerStyle = styled.div`
 
 const Content = styled.div`
   display: flex;
-`;
-
-const MenuContainer = styled.div`
-  background-color: rebeccapurple;
-  z-index: 1;
-  width: var(--menu-width);
-  height: calc(100vh - var(--header-height));
-  position: absolute;
-
-  transform: translateX(-320px);
-  transition-property: transform;
-  transition-duration: 0.3s;
-  transform-origin: left;
-
-  &.reveal {
-    transform: translateX(0px);
-  }
 `;
 
 const CodeViewArea = styled.div`
