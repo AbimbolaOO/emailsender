@@ -4,14 +4,11 @@ import toast from 'react-hot-toast';
 import styled from '@emotion/styled';
 
 import { FormSubmitButton } from './components/Button/FormSubmitButton';
+import PlaceHolderCard from './components/Cards/PlaceHolderCard';
 import { FormComponent } from './components/FormCom/FormComponent';
 import { TextInputField } from './components/FormCom/FormField';
 import { MailgunContext } from './context/MailgunContext';
-import {
-  MailgunDataType,
-  mailgunInitialValues,
-  MailgunSchema,
-} from './models/mailgun.model';
+import { MailgunDataType, MailgunSchema } from './models/mailgun.model';
 
 interface IMenu {
   revealMenu: boolean;
@@ -25,10 +22,14 @@ const Menu: React.FC<IMenu> = ({ revealMenu }) => {
     toast.success('Credential saved.');
   };
 
+  if (mailgunContext?.loading) {
+    return <PlaceHolderCard className="purple-bg" />;
+  }
+
   return (
     <Container className={revealMenu ? 'reveal' : ''}>
       <FormComponent
-        initialValues={mailgunInitialValues}
+        initialValues={mailgunContext?.mailgunCredentials}
         schema={MailgunSchema}
         onSubmit={handleOnFormSubmit}
       >

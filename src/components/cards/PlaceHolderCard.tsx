@@ -6,11 +6,12 @@ import LogoIcon from '../Icons/LogoIcon';
 
 interface IPlaceHolderCard {
   //   children: React.ReactNode;
+  className?: string;
 }
 
-const PlaceHolderCard: React.FC<IPlaceHolderCard> = () => {
+const PlaceHolderCard: React.FC<IPlaceHolderCard> = ({ className }) => {
   return (
-    <Container>
+    <Container className={className}>
       <LogoIcon />
     </Container>
   );
@@ -21,6 +22,10 @@ export default PlaceHolderCard;
 const Container = styled.div`
   display: grid;
   place-content: center;
-  background-color: #e8edf6;
+  background-color: ${({ theme }) => theme.palette.secondaryColor};
   height: 100%;
+
+  &.purple-bg {
+    background-color: ${({ theme }) => theme.palette.mainColor};
+  }
 `;
