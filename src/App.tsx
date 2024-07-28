@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import styled from '@emotion/styled';
 
@@ -8,23 +8,48 @@ import ViewResizerLeftCell from './components/ViewResizer/ViewResizerLeftCell';
 import ViewResizerRightCell from './components/ViewResizer/ViewResizerRightCell';
 import Header from './Header';
 import Menu from './Menu';
-import { defaultHtmlValue } from './utils/utils';
+import {
+  defaultHtmlValue,
+  readFromIndeDB,
+  writeToIndexDB,
+} from './utils/utils';
 
 function App() {
-  const [content, setContent] = useState(defaultHtmlValue);
+  const [editorContent, setEditorContent] = useState<string>(defaultHtmlValue);
+  const [iframeContent, setIframeContent] = useState<string>(defaultHtmlValue);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   const [revealMenu, setRevealMenu] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await readFromIndeDB();
+      setEditorContent(data || defaultHtmlValue);
+      setIframeContent(data || defaultHtmlValue);
+    };
+    fetchData();
+  }, []);
+
+  const handMonacoOnContentChange = (value: string) => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+
+    timeoutRef.current = setTimeout(() => {
+      setIframeContent(value);
+      writeToIndexDB('htmlContent', value);
+    }, 500);
+
+    setEditorContent(value);
+  };
 
   const handleOnMenuClick = () => {
     setRevealMenu(!revealMenu);
   };
 
-  const handMonacoOnContentChange = (value: string) => {
-    setContent(value);
-  };
-
   return (
     <Container>
-      <Header onMenuClick={handleOnMenuClick} emailContent={content} />
+      <Header onMenuClick={handleOnMenuClick} emailContent={editorContent} />
       <Content>
         <Menu revealMenu={revealMenu} />
         <CodeViewArea className={revealMenu ? 'reveal' : ''}>
@@ -34,14 +59,14 @@ function App() {
                 onChange={(value) => {
                   handMonacoOnContentChange(value);
                 }}
-                value={content}
+                value={editorContent}
               />
             </ViewResizerLeftCell>
             <ViewResizerRightCell>
               <iframe
                 title="email renderer"
                 frameBorder="0"
-                srcDoc={content}
+                srcDoc={iframeContent}
                 sandbox="allow-scripts"
                 width="100%"
                 height="100%"
