@@ -2,7 +2,7 @@ import React from 'react';
 
 import styled from '@emotion/styled';
 
-import PlaceHolderCard from '../Cards/PlaceHolderCard';
+import PlaceHolderCard from '../Card/PlaceHolderCard';
 
 interface IViewResizerRightCell {
   leftWidth?: number;

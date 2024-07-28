@@ -4,7 +4,7 @@ import toast from 'react-hot-toast';
 import styled from '@emotion/styled';
 
 import { FormSubmitButton } from './components/Button/FormSubmitButton';
-import PlaceHolderCard from './components/Cards/PlaceHolderCard';
+import PlaceHolderCard from './components/Card/PlaceHolderCard';
 import { FormComponent } from './components/FormCom/FormComponent';
 import { TextInputField } from './components/FormCom/FormField';
 import { MailgunContext } from './context/MailgunContext';
