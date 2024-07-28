@@ -3,9 +3,9 @@ import { useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
 
 import MonacoIde from './components/Monaco/MonacoIde';
-import ViewResizer from './components/ViewResizer/ViewResizer';
-import ViewResizerLeftCell from './components/ViewResizer/ViewResizerLeftCell';
-import ViewResizerRightCell from './components/ViewResizer/ViewResizerRightCell';
+import ViewResizer from './components/Resizer/ViewResizer';
+import ViewResizerLeftCell from './components/Resizer/ViewResizerLeftCell';
+import ViewResizerRightCell from './components/Resizer/ViewResizerRightCell';
 import Header from './Header';
 import Menu from './Menu';
 import {
