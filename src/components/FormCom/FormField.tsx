@@ -49,8 +49,7 @@ const InputLabel = styled.label`
 `;
 
 const Input = styled.input`
-  --border-color: #67032f;
-  border: 4px solid var(--border-color);
+  border: 4px solid ${({ theme }) => theme.palette.buttonColor};
   color: #2a0134;
   padding: 12px;
   text-align: left;
@@ -62,7 +61,7 @@ const Input = styled.input`
 
   &:focus {
     outline: none;
-    border-color: var(--border-color);
+    border-color: ${({ theme }) => theme.palette.buttonColor};
   }
 
   &:hover {

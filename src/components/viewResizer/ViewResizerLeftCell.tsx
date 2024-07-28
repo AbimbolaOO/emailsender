@@ -26,5 +26,5 @@ export default ViewResizerLeftCell;
 
 const Container = styled.div`
   display: flex;
-  border: 2px solid rebeccapurple;
+  border: 2px solid ${({ theme }) => theme.palette.mainColor};
 `;

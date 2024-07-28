@@ -1,22 +1,32 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import styled from '@emotion/styled';
 
-import { FormSubmitBtn } from './components/Button/FormSubmitButton';
+import { FormSubmitButton } from './components/Button/FormSubmitButton';
 import { FormComponent } from './components/FormCom/FormComponent';
 import { TextInputField } from './components/FormCom/FormField';
-import { mailgunInitialValues, MailgunSchema } from './models/mailgun.model';
+import { MailgunContext } from './context/MailgunContext';
+import {
+  MailgunDataType,
+  mailgunInitialValues,
+  MailgunSchema,
+} from './models/mailgun.model';
 
 interface IMenu {
   revealMenu: boolean;
 }
 
 const Menu: React.FC<IMenu> = ({ revealMenu }) => {
-  const handleOnFormSubmit = () => {
-    console.log('LOL');
-  };
+  const mailgunContext = useContext(MailgunContext);
 
-  const onSubitBtn = () => {};
+  console.log(
+    'mailgunContext?.mailgunCredentials;',
+    mailgunContext?.mailgunCredentials
+  );
+
+  const handleOnFormSubmit = (values: MailgunDataType) => {
+    mailgunContext?.setMailgunCredentials(values);
+  };
 
   return (
     <Container className={revealMenu ? 'reveal' : ''}>
@@ -60,9 +70,7 @@ const Menu: React.FC<IMenu> = ({ revealMenu }) => {
           type="text"
           placeholder=""
         />
-        <FormSubmitBtn type="submit" onClick={onSubitBtn}>
-          Save
-        </FormSubmitBtn>
+        <FormSubmitButton>Save</FormSubmitButton>
       </FormComponent>
     </Container>
   );
@@ -72,7 +80,7 @@ export default Menu;
 
 const Container = styled.div`
   padding: 16px;
-  background-color: rebeccapurple;
+  background-color: ${({ theme }) => theme.palette.mainColor};
   z-index: 1;
   width: var(--menu-width);
   height: calc(100vh - var(--header-height));

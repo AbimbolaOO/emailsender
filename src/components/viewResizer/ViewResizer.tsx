@@ -82,12 +82,11 @@ const ViewResizer: React.FC<IViewResizer> = ({ children }) => {
 export default ViewResizer;
 
 const Container = styled.div`
-  background-color: #e8edf6;
+  background-color: ${({ theme }) => theme.palette.secondaryColor};
   height: calc(100vh - var(--header-height));
   display: flex;
   padding: 16px;
   width: 100%;
-  /* border: 2px solid yellow; */
 `;
 
 interface IResizer {
@@ -95,7 +94,7 @@ interface IResizer {
 }
 
 const Resizer = styled.div<IResizer>`
-  background-color: rebeccapurple;
+  background-color: ${({ theme }) => theme.palette.mainColor};
   width: ${({ resizerWidth }) => `${resizerWidth}px`};
   display: grid;
   place-content: center;

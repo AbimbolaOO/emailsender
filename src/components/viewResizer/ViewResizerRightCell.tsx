@@ -30,5 +30,5 @@ export default ViewResizerRightCell;
 
 const Container = styled.div`
   background-color: white;
-  border: 2px solid rebeccapurple;
+  border: 2px solid ${({ theme }) => theme.palette.mainColor};
 `;

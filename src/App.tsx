@@ -1,12 +1,12 @@
 import { useState } from 'react';
 
-import { MenuOutlined } from '@ant-design/icons';
 import styled from '@emotion/styled';
 
 import MonacoIde from './components/Ide/MonacoIde';
 import ViewResizer from './components/ViewResizer/ViewResizer';
 import ViewResizerLeftCell from './components/ViewResizer/ViewResizerLeftCell';
 import ViewResizerRightCell from './components/ViewResizer/ViewResizerRightCell';
+import Header from './Header';
 import Menu from './Menu';
 import { defaultHtmlValue } from './utils/utils';
 
@@ -18,14 +18,13 @@ function App() {
     setRevealMenu(!revealMenu);
   };
 
+  const handMonacoOnContentChange = (value: string) => {
+    setContent(value);
+  };
+
   return (
     <Container>
-      <Header>
-        <HamburgerStyle onClick={handleOnMenuClick}>
-          <MenuOutlined />
-        </HamburgerStyle>
-        SendMail
-      </Header>
+      <Header onMenuClick={handleOnMenuClick} emailContent={content} />
       <Content>
         <Menu revealMenu={revealMenu} />
         <CodeViewArea className={revealMenu ? 'reveal' : ''}>
@@ -33,7 +32,7 @@ function App() {
             <ViewResizerLeftCell>
               <MonacoIde
                 onChange={(value) => {
-                  setContent(value);
+                  handMonacoOnContentChange(value);
                 }}
                 value={content}
               />
@@ -68,22 +67,6 @@ const Container = styled.div`
   overflow: hidden;
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
-`;
-
-const Header = styled.div`
-  background-color: rebeccapurple;
-  height: var(--header-height);
-
-  font-size: 28px;
-  display: flex;
-  gap: 16px;
-  padding-left: 16px;
-  align-items: center;
-  color: white;
-`;
-
-const HamburgerStyle = styled.div`
-  cursor: pointer;
 `;
 
 const Content = styled.div`

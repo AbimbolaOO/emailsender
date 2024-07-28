@@ -3,12 +3,22 @@ import { css, Theme } from '@emotion/react';
 
 declare module '@emotion/react' {
   export interface Theme {
-    palette: {};
+    palette: {
+      buttonColor: string;
+      mainColor: string;
+      secondaryColor: string;
+      disableColor: string;
+    };
   }
 }
 
 export const theme: Theme = {
-  palette: {},
+  palette: {
+    buttonColor: '#67032f',
+    mainColor: 'rebeccapurple',
+    secondaryColor: '#e8edf6',
+    disableColor: '#d1c5c5',
+  },
 };
 
 const GlobalStyles = css`
