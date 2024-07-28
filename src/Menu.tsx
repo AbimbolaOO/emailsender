@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import toast from 'react-hot-toast';
 
 import styled from '@emotion/styled';
 
@@ -19,13 +20,9 @@ interface IMenu {
 const Menu: React.FC<IMenu> = ({ revealMenu }) => {
   const mailgunContext = useContext(MailgunContext);
 
-  console.log(
-    'mailgunContext?.mailgunCredentials;',
-    mailgunContext?.mailgunCredentials
-  );
-
   const handleOnFormSubmit = (values: MailgunDataType) => {
     mailgunContext?.setMailgunCredentials(values);
+    toast.success('Credential saved.');
   };
 
   return (

@@ -12,12 +12,12 @@ const useSendMail = () => {
   const [loading, setLoading] = useState(false);
   const mailgunContext = useContext(MailgunContext);
 
-  const setSendMailSuccess = (res: any) => {
-    toast.success(`success -- > ${JSON.stringify(res)}`);
+  const setSendMailSuccess = (_: any) => {
+    toast.success(`Email sent successfully`);
   };
 
   const onSendMailError = (err: any) => {
-    console.log('onLoginError');
+    console.error(err);
     toast.error(err?.response?.data?.message ?? 'Something went wrong');
   };
 
@@ -49,28 +49,27 @@ const request = async (
   errorFn: (...arg: any) => void
 ) => {
   const form = new FormData();
-  form.append('from', `Via sendmail.com by ${reqConfig.from}`);
+  form.append('from', `Via sendmail ${reqConfig.from}`);
   form.append('to', reqConfig.to);
   form.append('subject', reqConfig.subject);
   form.append('html', reqConfig.html);
 
   try {
+    loadinFn(true);
     const response = await axios.post(
-      `https://api.mailgun.net/${reqConfig.sandBoxUrl}/messages`,
+      `https://api.mailgun.net/v3/${reqConfig.sandBoxUrl}/messages`,
       form,
       {
         auth: {
           username: 'api',
           password: reqConfig.apiKey,
         },
-        headers: { 'Content-Type': 'multipart/form-data' },
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       }
     );
-    console.log(response.data);
     successFn(response.data);
-    loadinFn(true);
+    loadinFn(false);
   } catch (error) {
-    console.error(error);
     errorFn(error);
     loadinFn(false);
   }

@@ -23,8 +23,8 @@ export const FormSubmitButton: React.FC<IFormSubmitButton> = ({
       type="submit"
       disabled={isValid && dirty ? false : true}
     >
-      {loading && <LoadingOutlined />}
       {children}
+      {loading && <LoadingOutlined />}
     </SubmitBtn>
   );
 };
@@ -41,8 +41,8 @@ export const PlainSubmitButton: React.FC<IFormSubmitButton> = ({
       type="submit"
       onClick={onClick}
     >
-      {loading && <LoadingOutlined />}
       {children}
+      {loading && <LoadingOutlined />}
     </SubmitBtn>
   );
 };
