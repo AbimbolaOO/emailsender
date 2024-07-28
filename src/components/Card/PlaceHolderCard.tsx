@@ -2,7 +2,7 @@ import React from 'react';
 
 import styled from '@emotion/styled';
 
-import LogoIcon from '../Icons/LogoIcon';
+import LogoIcon from '../Icon/LogoIcon';
 
 interface IPlaceHolderCard {
   //   children: React.ReactNode;
