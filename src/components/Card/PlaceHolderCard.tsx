@@ -5,7 +5,6 @@ import styled from '@emotion/styled';
 import LogoIcon from '../Icon/LogoIcon';
 
 interface IPlaceHolderCard {
-  //   children: React.ReactNode;
   className?: string;
 }
 
@@ -27,5 +26,10 @@ const Container = styled.div`
 
   &.purple-bg {
     background-color: ${({ theme }) => theme.palette.mainColor};
+  }
+
+  @media screen and (max-width: 884px) {
+    width: 100%;
+    background-color: white;
   }
 `;

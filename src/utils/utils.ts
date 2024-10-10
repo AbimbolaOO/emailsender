@@ -14,7 +14,7 @@ export const defaultHtmlValue = `<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//E
 </html>
 `;
 
-export const readFromIndeDB = async () => {
+export const readFromIndexDB = async () => {
   try {
     const value: string | null = await localforage.getItem('htmlContent');
     if (!value) {

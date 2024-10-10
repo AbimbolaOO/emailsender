@@ -8,6 +8,7 @@ declare module '@emotion/react' {
       mainColor: string;
       secondaryColor: string;
       disableColor: string;
+      borderColor: string;
     };
   }
 }
@@ -18,6 +19,7 @@ export const theme: Theme = {
     mainColor: 'rebeccapurple',
     secondaryColor: '#e8edf6',
     disableColor: '#d1c5c5',
+    borderColor: '#E2E2E2',
   },
 };
 
